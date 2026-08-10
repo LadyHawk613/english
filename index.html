@@ -83,6 +83,10 @@
     display: flex;
     align-items: center;
     white-space: nowrap;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
   }
   .tab:hover { color: var(--cream); }
   .tab.active { border-bottom-color: #fff; }
@@ -106,7 +110,7 @@
   }
   .tab-add:hover { background: var(--maroon-600); }
 
-  /* Main content sits directly on the page background */
+  /* Main content area */
   .content { padding-top: 18px; }
 
   .hero {
@@ -204,13 +208,14 @@
     color: #8A8371;
   }
 
-  /* About me / Syllabus / custom tab content */
+  /* Document / Custom tab views */
   .doc-title {
     font-family: 'Baloo 2', sans-serif;
     font-weight: 600;
     font-size: 24px;
     color: var(--cream);
     margin: 0 0 14px;
+    outline: none;
   }
   .doc-body {
     font-size: 15px;
@@ -251,47 +256,118 @@
         <div class="subtitle" id="classSubtitle" contenteditable="true" data-placeholder="Add a subtitle">Beginning college English</div>
       </div>
     </div>
-    <div class="tabs" id="tabsRow"></div>
+    
+    <!-- Navigation Tabs -->
+    <div class="tabs" id="tabsRow">
+      <button class="tab active" onclick="switchTab('week')">This week</button>
+      <button class="tab" onclick="switchTab('about')">About me <span class="tab-close" onclick="event.stopPropagation(); this.parentElement.remove();">&times;</span></button>
+      <button class="tab" onclick="switchTab('syllabus')">Syllabus <span class="tab-close" onclick="event.stopPropagation(); this.parentElement.remove();">&times;</span></button>
+      <button class="tab-add" onclick="addTab()">+ Add tab</button>
+    </div>
   </div>
 
   <div class="wrap">
-    <div class="hero" id="hero">
-      <div class="hero-text">
-        <div class="hero-heading" id="heroTitle" contenteditable="true" data-placeholder="Welcome message">Welcome to English 101</div>
-        <div class="hero-sub" id="heroSubtitle" contenteditable="true" data-placeholder="Add a short welcome note">A friendly, supportive space to build your English skills together, week by week.</div>
-      </div>
-    </div>
+    <div class="content" id="mainContent">
+      <!-- Default View: This Week -->
+      <div id="view-week">
+        <div class="hero" id="hero">
+          <div class="hero-text">
+            <div class="hero-heading" id="heroTitle" contenteditable="true" data-placeholder="Welcome message">Welcome to English 101</div>
+            <div class="hero-sub" id="heroSubtitle" contenteditable="true" data-placeholder="Add a short welcome note">A friendly, supportive space to build your English skills together, week by week.</div>
+          </div>
+        </div>
 
-    <!-- Calendar / Week View Section -->
-    <div class="week-nav">
-      <button id="prevWeek">&#10094;</button>
-      <div class="week-label" id="weekLabel" contenteditable="true">Week 1: Getting Started</div>
-      <button id="nextWeek">&#10095;</button>
-    </div>
+        <div class="week-nav">
+          <button id="prevWeek">&#10094;</button>
+          <div class="week-label" id="weekLabel" contenteditable="true">Week 1: Getting Started</div>
+          <button id="nextWeek">&#10095;</button>
+        </div>
 
-    <div class="week-grid" id="weekGrid">
-      <div class="day">
-        <div class="day-head" contenteditable="true">Monday</div>
-        <div class="day-body" contenteditable="true" data-placeholder="Add notes for Monday..."></div>
-      </div>
-      <div class="day">
-        <div class="day-head" contenteditable="true">Tuesday</div>
-        <div class="day-body" contenteditable="true" data-placeholder="Add notes for Tuesday..."></div>
-      </div>
-      <div class="day">
-        <div class="day-head" contenteditable="true">Wednesday</div>
-        <div class="day-body" contenteditable="true" data-placeholder="Add assignments or notes..."></div>
-      </div>
-      <div class="day">
-        <div class="day-head" contenteditable="true">Thursday</div>
-        <div class="day-body" contenteditable="true" data-placeholder="Add notes for Thursday..."></div>
-      </div>
-      <div class="day">
-        <div class="day-head" contenteditable="true">Friday</div>
-        <div class="day-body" contenteditable="true" data-placeholder="Add wrap-up notes..."></div>
+        <div class="week-grid" id="weekGrid">
+          <div class="day">
+            <div class="day-head" contenteditable="true">Monday</div>
+            <div class="day-body" contenteditable="true" data-placeholder="Add notes for Monday..."></div>
+          </div>
+          <div class="day">
+            <div class="day-head" contenteditable="true">Tuesday</div>
+            <div class="day-body" contenteditable="true" data-placeholder="Add notes for Tuesday..."></div>
+          </div>
+          <div class="day">
+            <div class="day-head" contenteditable="true">Wednesday</div>
+            <div class="day-body" contenteditable="true" data-placeholder="Add assignments or notes..."></div>
+          </div>
+          <div class="day">
+            <div class="day-head" contenteditable="true">Thursday</div>
+            <div class="day-body" contenteditable="true" data-placeholder="Add notes for Thursday..."></div>
+          </div>
+          <div class="day">
+            <div class="day-head" contenteditable="true">Friday</div>
+            <div class="day-body" contenteditable="true" data-placeholder="Add wrap-up notes..."></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
+<script>
+  function switchTab(tabName) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+    
+    const content = document.getElementById('mainContent');
+    if (tabName === 'week') {
+      content.innerHTML = `
+        <div id="view-week">
+          <div class="hero" id="hero">
+            <div class="hero-text">
+              <div class="hero-heading" id="heroTitle" contenteditable="true" data-placeholder="Welcome message">Welcome to English 101</div>
+              <div class="hero-sub" id="heroSubtitle" contenteditable="true" data-placeholder="Add a short welcome note">A friendly, supportive space to build your English skills together, week by week.</div>
+            </div>
+          </div>
+          <div class="week-nav">
+            <button id="prevWeek">&#10094;</button>
+            <div class="week-label" id="weekLabel" contenteditable="true">Week 1: Getting Started</div>
+            <button id="nextWeek">&#10095;</button>
+          </div>
+          <div class="week-grid" id="weekGrid">
+            <div class="day"><div class="day-head" contenteditable="true">Monday</div><div class="day-body" contenteditable="true" data-placeholder="Add notes for Monday..."></div></div>
+            <div class="day"><div class="day-head" contenteditable="true">Tuesday</div><div class="day-body" contenteditable="true" data-placeholder="Add notes for Tuesday..."></div></div>
+            <div class="day"><div class="day-head" contenteditable="true">Wednesday</div><div class="day-body" contenteditable="true" data-placeholder="Add assignments or notes..."></div></div>
+            <div class="day"><div class="day-head" contenteditable="true">Thursday</div><div class="day-body" contenteditable="true" data-placeholder="Add notes for Thursday..."></div></div>
+            <div class="day"><div class="day-head" contenteditable="true">Friday</div><div class="day-body" contenteditable="true" data-placeholder="Add wrap-up notes..."></div></div>
+          </div>
+        </div>`;
+    } else {
+      content.innerHTML = `
+        <div>
+          <div class="doc-title" contenteditable="true">${tabName === 'about' ? 'About Me' : 'Syllabus'}</div>
+          <div class="accent-rule"></div>
+          <div class="doc-body" contenteditable="true" data-placeholder="Type or paste your content here..."></div>
+        </div>`;
+    }
+  }
+
+  function addTab() {
+    let name = prompt("Enter new tab name:");
+    if (!name) return;
+    let tabsRow = document.getElementById('tabsRow');
+    let addBtn = tabsRow.querySelector('.tab-add');
+    
+    let newTab = document.createElement('button');
+    newTab.className = 'tab';
+    newTab.innerHTML = `${name} <span class="tab-close" onclick="event.stopPropagation(); this.parentElement.remove();">&times;</span>`;
+    newTab.onclick = function() {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      newTab.classList.add('active');
+      document.getElementById('mainContent').innerHTML = `
+        <div>
+          <div class="doc-title" contenteditable="true">${name}</div>
+          <div class="accent-rule"></div>
+          <div class="doc-body" contenteditable="true" data-placeholder="Type or paste your content here..."></div>
+        </div>`;
+    };
+    tabsRow.insertBefore(newTab, addBtn);
+  }
+</script>
 </body>
 </html>
