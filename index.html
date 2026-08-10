@@ -113,9 +113,9 @@
     display: flex;
     align-items: center;
     gap: 44px;
-    margin-bottom: 12px;
+    margin-bottom: 24px;
   }
-  .hero-text { flex: 1 1 380px; }
+  .hero-text { flex: 1; }
   .hero-heading {
     font-family: 'Baloo 2', sans-serif;
     font-weight: 700;
@@ -139,7 +139,7 @@
     align-items: center;
     justify-content: center;
     gap: 18px;
-    margin-bottom: 10px;
+    margin-bottom: 16px;
   }
   .week-nav button {
     font-family: 'Karla', sans-serif;
@@ -162,6 +162,7 @@
     letter-spacing: 0.4px;
     min-width: 210px;
     text-align: center;
+    outline: none;
   }
 
   .week-grid {
@@ -188,6 +189,7 @@
     text-align: center;
     letter-spacing: 0.8px;
     text-transform: uppercase;
+    outline: none;
   }
   .day-body {
     flex: 1;
@@ -260,7 +262,35 @@
       </div>
     </div>
 
-    <!-- Rest of your dashboard container / week view structures -->
+    <!-- Calendar / Week View Section -->
+    <div class="week-nav">
+      <button id="prevWeek">&#10094;</button>
+      <div class="week-label" id="weekLabel" contenteditable="true">Week 1: Getting Started</div>
+      <button id="nextWeek">&#10095;</button>
+    </div>
+
+    <div class="week-grid" id="weekGrid">
+      <div class="day">
+        <div class="day-head" contenteditable="true">Monday</div>
+        <div class="day-body" contenteditable="true" data-placeholder="Add notes for Monday..."></div>
+      </div>
+      <div class="day">
+        <div class="day-head" contenteditable="true">Tuesday</div>
+        <div class="day-body" contenteditable="true" data-placeholder="Add notes for Tuesday..."></div>
+      </div>
+      <div class="day">
+        <div class="day-head" contenteditable="true">Wednesday</div>
+        <div class="day-body" contenteditable="true" data-placeholder="Add assignments or notes..."></div>
+      </div>
+      <div class="day">
+        <div class="day-head" contenteditable="true">Thursday</div>
+        <div class="day-body" contenteditable="true" data-placeholder="Add notes for Thursday..."></div>
+      </div>
+      <div class="day">
+        <div class="day-head" contenteditable="true">Friday</div>
+        <div class="day-body" contenteditable="true" data-placeholder="Add wrap-up notes..."></div>
+      </div>
+    </div>
   </div>
 
 </body>
