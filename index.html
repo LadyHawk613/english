@@ -195,10 +195,6 @@
     overflow: hidden;
     box-shadow: 0 6px 16px rgba(0,0,0,0.14);
   }
-  .day.is-today {
-    border: 3px solid var(--cream);
-    box-shadow: 0 0 16px rgba(243, 222, 192, 0.4);
-  }
   .day-head {
     font-family: 'Baloo 2', sans-serif;
     font-weight: 600;
@@ -364,7 +360,7 @@ function renderTabs() {
         if (state.activeTab === tab.id) state.activeTab = 'week';
         render(); save();
       }
-     };
+    };
     el.onclick = () => { state.activeTab = tab.id; render(); save(); };
     el.appendChild(closer);
     row.appendChild(el);
@@ -407,27 +403,11 @@ function renderPanel() {
     nav.append(prev, label, next);
     panel.appendChild(nav);
 
-    // Calculate today's date for highlighting comparison
-    const todayDate = new Date();
-    todayDate.setHours(0,0,0,0);
-
-    const baseMonday = mondayOf(new Date());
-    baseMonday.setDate(baseMonday.getDate() + state.weekOffset * 7);
-
     const grid = document.createElement('div');
     grid.className = 'week-grid';
     DAY_NAMES.forEach((name, i) => {
       const col = document.createElement('div');
-      
-      const currentDayDate = new Date(baseMonday);
-      currentDayDate.setDate(baseMonday.getDate() + i);
-
-      let colClass = 'day';
-      if (currentDayDate.getTime() === todayDate.getTime()) {
-        colClass += ' is-today';
-      }
-      col.className = colClass;
-
+      col.className = 'day';
       const head = document.createElement('div');
       head.className = 'day-head';
       head.textContent = name;
