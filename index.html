@@ -28,7 +28,15 @@
   .wrap { max-width: 1080px; margin: 0 auto; padding: 14px 24px 60px; }
 
   /* Top bar */
+
+  /* Container that spans the full width and holds the background color */
+  .topbar-container {
+    background: var(--bar);
+    width: 100%;
+  }
   .topbar {
+    max-width: 1200px;
+    margin: 0 auto;
     background: var(--bar);
     display: flex;
     align-items: center;
@@ -248,7 +256,8 @@
 </style>
 </head>
 <body>
-
+  
+<div class="topbar-container">
   <div class="topbar">
     <div class="brand">
       <div class="mascot">Aa</div>
@@ -256,9 +265,10 @@
         <div class="title" id="classTitle" contenteditable="true" data-placeholder="Class name">English 101</div>
         <div class="subtitle" id="classSubtitle" contenteditable="true" data-placeholder="Add a subtitle">Beginning college English</div>
       </div>
-    </div>
+      </div>
     <div class="tabs" id="tabsRow"></div>
   </div>
+</div>
 
   <div class="wrap">
     <div class="hero" id="hero">
